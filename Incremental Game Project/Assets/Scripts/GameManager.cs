@@ -18,11 +18,14 @@ public class GameManager : MonoBehaviour
     public Text GoldInfo;
     public Text AutoCollectInfo;
 
+    public float SaveDelay = 5f;
+
     private List<ResourceController> _activeResource = new List<ResourceController>();
     private List<TapText> _tapTextPool = new List<TapText>();
     private float _collectSecond;
 
-    public double TotalGold { get; private set; }
+    private float _saveDelayCounter;
+    
 
     private static GameManager _instance = null;
     public static GameManager Instance
@@ -41,11 +44,15 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         AddAllResources();
+        GoldInfo.text = $"Gold: {UserDataManager.Progress.Gold.ToString("0")}";
     }
 
     private void Update()
     {
-        _collectSecond += Time.unscaledDeltaTime;
+        float deltaTime = Time.unscaledDeltaTime;
+        _saveDelayCounter -= deltaTime;
+
+        _collectSecond += deltaTime;
         if (_collectSecond >= 1f)
         {
             CollectPerSecond();
@@ -60,12 +67,14 @@ public class GameManager : MonoBehaviour
     private void AddAllResources()
     {
         bool showResources = true;
+        int index = 0;
+
         foreach (ResourceConfig config in ResourceConfigs)
         {
             GameObject obj = Instantiate(ResourcePrefab.gameObject, ResourceParent, false);
             ResourceController resource = obj.GetComponent<ResourceController>();
 
-            resource.SetConfig(config);
+            resource.SetConfig(index, config);
 
             obj.gameObject.SetActive(showResources);
 
@@ -75,7 +84,7 @@ public class GameManager : MonoBehaviour
             }
 
             _activeResource.Add(resource);
-
+            index++;
         }
     }
 
@@ -99,10 +108,14 @@ public class GameManager : MonoBehaviour
 
     public void AddGold(double value)
     {
-        TotalGold += value;
-        GoldInfo.text = $"Gold: {TotalGold.ToString("0")}";
+        UserDataManager.Progress.Gold += value;
+        GoldInfo.text = $"Gold: {UserDataManager.Progress.Gold.ToString("0")}";
+        UserDataManager.Save(_saveDelayCounter<0f);
 
-        if (TotalGold > 1000000)
+        if (_saveDelayCounter < 0f)
+            _saveDelayCounter = SaveDelay;
+
+        if (UserDataManager.Progress.Gold > 1000000)
         {
             AchievementController.Instance.UnlockAchievement(AchievementType.InfiniteGrowth, "1000000");
         }
@@ -110,7 +123,7 @@ public class GameManager : MonoBehaviour
     
     public void CollectByTap(Vector3 tapPosition, Transform parent)
     {
-        double output = 0;
+        double output = 1;
         foreach(ResourceController resource in _activeResource)
         {
             if (resource.isUnlocked)
@@ -162,11 +175,11 @@ public class GameManager : MonoBehaviour
 
             if (resource.isUnlocked)
             {
-                isBuyable = TotalGold >= resource.GetUpgradeCost();
+                isBuyable = UserDataManager.Progress.Gold >= resource.GetUpgradeCost();
             }
             else
             {
-                isBuyable = TotalGold >= resource.GetUnlockCost();
+                isBuyable = UserDataManager.Progress.Gold >= resource.GetUnlockCost();
             }
             resource.ResourceImage.sprite = ResourceSprites[isBuyable ? 1 : 0];
         }

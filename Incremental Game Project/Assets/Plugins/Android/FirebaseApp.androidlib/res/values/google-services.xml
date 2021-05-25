@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="gcm_defaultSenderId" translatable="false">12917642224</string>
+  <string name="google_storage_bucket" translatable="false">suryaasm-incremental-game.appspot.com</string>
+  <string name="project_id" translatable="false">suryaasm-incremental-game</string>
+  <string name="google_api_key" translatable="false">AIzaSyA7c0g6-UnXfXreTpdAzjV16pnuDzHZmHY</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA7c0g6-UnXfXreTpdAzjV16pnuDzHZmHY</string>
+  <string name="google_app_id" translatable="false">1:12917642224:android:4e565288a2357aa1958335</string>
+  <string name="default_web_client_id" translatable="false">12917642224-8utvia6fn6ljflffamqnd8v7v13kd64j.apps.googleusercontent.com</string>
+</resources>

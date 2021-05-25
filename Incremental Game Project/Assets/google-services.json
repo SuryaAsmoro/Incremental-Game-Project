@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "12917642224",
+    "project_id": "suryaasm-incremental-game",
+    "storage_bucket": "suryaasm-incremental-game.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12917642224:android:4e565288a2357aa1958335",
+        "android_client_info": {
+          "package_name": "com.suryaasm.incremental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12917642224-8utvia6fn6ljflffamqnd8v7v13kd64j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7c0g6-UnXfXreTpdAzjV16pnuDzHZmHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12917642224-8utvia6fn6ljflffamqnd8v7v13kd64j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

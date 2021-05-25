@@ -46,7 +46,7 @@ public class AchievementController : MonoBehaviour
             achievement.IsUnlocked = true;
             ShowAchievementPopUp(achievement);
         }
-        else if (achievement!=null && !achievement.IsUnlocked && GameManager.Instance.TotalGold > 1000000)
+        else if (achievement!=null && !achievement.IsUnlocked && UserDataManager.Progress.Gold > 1000000)
         {
             achievement.IsUnlocked = true;
             ShowAchievementPopUp(achievement);
